@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product
-from .forms import ProductForm, CategoryForm # <-- Make sure CategoryForm is imported!
+from django.contrib import messages 
+from .models import Product, Sale   
+from .forms import ProductForm, CategoryForm
 
 def product_list(request):
     query = request.GET.get('q')
@@ -12,6 +13,35 @@ def product_list(request):
         
     context = {'products': products, 'search_query': query}
     return render(request, 'inventory/product_list.html', context)
+
+
+def purchase_game(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    
+    if request.method == 'POST':
+        # Check if we have stock
+        if product.stock > 0:
+            # 1. Deduct 1 from stock and save
+            product.stock -= 1
+            product.save()
+            
+            # 2. Record the sale in the database
+            Sale.objects.create(
+                product=product,
+                quantity=1,
+                price_at_sale=product.sale_price
+            )
+            
+            # 3. Show a success message and send them home
+            messages.success(request, f"Payment successful! You purchased {product.name}.")
+            return redirect('product_list')
+        else:
+            messages.error(request, f"Sorry, {product.name} is completely sold out!")
+            return redirect('product_list')
+
+    # If they haven't submitted the form yet, show them the checkout screen
+    context = {'product': product}
+    return render(request, 'inventory/checkout.html', context)
 
 @login_required
 def product_create(request):
@@ -59,3 +89,4 @@ def category_create(request):
         form = CategoryForm()
     context = {'form': form}
     return render(request, 'inventory/category_form.html', context)
+

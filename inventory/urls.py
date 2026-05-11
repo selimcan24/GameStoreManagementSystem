@@ -8,7 +8,7 @@ urlpatterns = [
     path('edit/<int:pk>/', views.product_update, name='product_update'),
     path('delete/<int:pk>/', views.product_delete, name='product_delete'),
     
-    # THIS IS THE MISSING LINE! Make sure it is right here:
+    path('buy/<int:pk>/', views.purchase_game, name='purchase_game'),
     path('category/add/', views.category_create, name='category_create'),
     
     path('login/', auth_views.LoginView.as_view(template_name='inventory/login.html'), name='login'),
