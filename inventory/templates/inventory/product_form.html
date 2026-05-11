@@ -1,30 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Game</title>
+    <title>Manage Game | Nexus Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>body { background-color: #121212; }</style>
 </head>
-<body class="bg-light">
-
-<div class="container mt-5">
+<body>
+<div class="container mt-5 pt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Add New Game to Inventory</h4>
+            <div class="card bg-dark border-secondary shadow-lg rounded-4">
+                <div class="card-header bg-black border-secondary py-3 text-center rounded-top-4">
+                    <h4 class="mb-0 text-primary"><i class="bi bi-database-add"></i> Manage Game Data</h4>
                 </div>
-                <div class="card-body">
-                    <!-- The Form -->
+                <div class="card-body p-4">
                     <form method="POST">
-                        {% csrf_token %} <!-- SECURITY FEATURE: Django requires this to prevent hacking -->
-                        
-                        {{ form.as_p }} <!-- This renders all the fields we defined in forms.py -->
-                        
-                        <div class="mt-4">
-                            <button type="submit" class="btn btn-success">Save Game</button>
-                            <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="mt-5 d-flex justify-content-between">
+                            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary px-4"><i class="bi bi-arrow-left"></i> Cancel</a>
+                            <button type="submit" class="btn btn-success px-4"><i class="bi bi-floppy"></i> Save Game</button>
                         </div>
                     </form>
                 </div>
@@ -32,6 +29,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>
