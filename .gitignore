@@ -1,0 +1,13 @@
+# Environments
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database (Optional, but best practice)
+# db.sqlite3 
+
+# Mac OS junk files
+.DS_Store
