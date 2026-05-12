@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventory',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -55,10 +56,12 @@ ROOT_URLCONF = 'gamestore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Sadece DIRS kısmının içini aşağıdaki gibi doldur:
+        'DIRS': [BASE_DIR / 'inventory/templates'], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

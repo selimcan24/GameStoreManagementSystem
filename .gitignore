@@ -1,13 +1,5 @@
-# Environments
 venv/
-env/
-
-# Python cache
-__pycache__/
 *.pyc
-
-# Database (Optional, but best practice)
-# db.sqlite3 
-
-# Mac OS junk files
+__pycache__/
+db.sqlite3
 .DS_Store

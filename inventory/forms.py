@@ -5,13 +5,15 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'category', 'purchase_price', 'sale_price', 'stock']
+        # We add Bootstrap classes here so the form is dark-mode ready out of the box!
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.Select(attrs={'class': 'form-select'}),
-            'purchase_price': forms.NumberInput(attrs={'class': 'form-control'}),
-            'sale_price': forms.NumberInput(attrs={'class': 'form-control'}),
-            'stock': forms.NumberInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control bg-dark text-light border-secondary'}),
+            'category': forms.Select(attrs={'class': 'form-select bg-dark text-light border-secondary'}),
+            'purchase_price': forms.NumberInput(attrs={'class': 'form-control bg-dark text-light border-secondary'}),
+            'sale_price': forms.NumberInput(attrs={'class': 'form-control bg-dark text-light border-secondary'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control bg-dark text-light border-secondary'}),
         }
+        
 
 # --- THIS IS THE FORM DJANGO WAS LOOKING FOR ---
 class CategoryForm(forms.ModelForm):
