@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from .models import Product, Sale   
+from django.db.models import Sum, F
 from .forms import ProductForm, CategoryForm
 
 def product_list(request):
@@ -90,3 +91,31 @@ def category_create(request):
     context = {'form': form}
     return render(request, 'inventory/category_form.html', context)
 
+@login_required
+def analytics_dashboard(request):
+    # 1. Calculate Total Revenue
+      revenue_data = Sale.objects.annotate(
+        line_total=F('quantity') * F('price_at_sale')
+    ).aggregate(total_revenue=Sum('line_total'))
+    total_revenue = revenue_data['total_revenue'] or 0.00
+
+    # 2. Calculate Total Items Sold
+    items_sold_data = Sale.objects.aggregate(total_sold=Sum('quantity'))
+    total_sold = items_sold_data['total_sold'] or 0
+
+    # 3. Find the Top 5 Best-Selling Games
+    # We link the Product to its Sales, sum up the quantities, and sort descending
+    top_games = Product.objects.annotate(
+        total_sales=Sum('sales__quantity')
+    ).filter(total_sales__gt=0).order_by('-total_sales')[:5]
+
+    # 4. Count out-of-stock items for alerts
+    out_of_stock_count = Product.objects.filter(stock=0).count()
+
+    context = {
+        'total_revenue': total_revenue,
+        'total_sold': total_sold,
+        'top_games': top_games,
+        'out_of_stock': out_of_stock_count,
+    }
+    return render(request, 'inventory/dashboard.html', context)
