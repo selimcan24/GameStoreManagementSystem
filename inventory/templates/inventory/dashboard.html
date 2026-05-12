@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics Dashboard | Nexus Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>body { background-color: #121212; }</style>
+</head>
+<body>
+<div class="container mt-5 pt-3">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+        <h2 class="text-primary fw-bold"><i class="bi bi-graph-up-arrow"></i> Financial Analytics</h2>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-light"><i class="bi bi-arrow-left"></i> Back to Store</a>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card bg-dark border-success shadow-sm h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="text-muted text-uppercase mb-3">Total Revenue</h5>
+                    <h1 class="text-success fw-bold">${{ total_revenue|floatformat:2 }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark border-info shadow-sm h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="text-muted text-uppercase mb-3">Total Games Sold</h5>
+                    <h1 class="text-info fw-bold">{{ total_sold }} Units</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark border-danger shadow-sm h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="text-muted text-uppercase mb-3">Items Out of Stock</h5>
+                    <h1 class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> {{ out_of_stock }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-dark border-secondary shadow">
+        <div class="card-header bg-black text-light border-secondary py-3">
+            <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Top 5 Best-Selling Games</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-dark table-striped table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Rank</th>
+                        <th>Game Title</th>
+                        <th>Category</th>
+                        <th class="text-end pe-4">Total Units Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in top_games %}
+                    <tr>
+                        <td class="ps-4 text-warning fw-bold">#{{ forloop.counter }}</td>
+                        <td class="text-light fw-bold">{{ game.name }}</td>
+                        <td><span class="badge bg-secondary">{{ game.category.name }}</span></td>
+                        <td class="text-end pe-4 text-info fw-bold">{{ game.total_sales }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">No sales data available yet. Go buy some games!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

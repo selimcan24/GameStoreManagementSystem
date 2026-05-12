@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+    <!-- Custom content added ABOVE the original app list -->
+    <div style="background-color: #d1e7dd; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+        <h3>👋 Welcome!</h3>
+        <p>This is the Game Store project control center. Please be careful when updating the stock.</p>
+    </div>
+
+    <!-- Renders the original admin panel content -->
+    {{ block.super }}
+{% endblock %}

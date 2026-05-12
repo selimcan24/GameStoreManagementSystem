@@ -8,10 +8,7 @@ urlpatterns = [
     path('edit/<int:pk>/', views.product_update, name='product_update'),
     path('delete/<int:pk>/', views.product_delete, name='product_delete'),
     
-    path('buy/<int:pk>/', views.purchase_game, name='purchase_game'),
-    path('analytics/', views.analytics_dashboard, name='analytics_dashboard'),
-    path('category/add/', views.category_create, name='category_create'),
-    
+    # Add these two lines for login and logout:
     path('login/', auth_views.LoginView.as_view(template_name='inventory/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='product_list'), name='logout'),
 ]
