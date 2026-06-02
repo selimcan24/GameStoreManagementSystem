@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-gia!a-sth2!xbg)i-=59%2fvd)$70*vt2+5a)#r3m21xy@toi6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'gamestoremanagementsystem.onrender.com', 
+    'localhost', 
+    '127.0.0.1',
+    '74.220.48.0/24'
+    '74.220.56.0/24'
+    '.onrender.com' # This wildcard allows any Render subdomain you might get
+]
 
 
 # Application definition
@@ -118,6 +125,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 LOGIN_REDIRECT_URL = 'product_list'
 LOGOUT_REDIRECT_URL = 'product_list'
+
