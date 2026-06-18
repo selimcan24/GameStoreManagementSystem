@@ -12,7 +12,6 @@ from .models import Product, Category, Order
 from .serializers import ProductSerializer
 from .forms import ProductForm
 
-# --- EXISTING INVENTORY CRUD VIEWS ---
 
 def product_list(request):
     query = request.GET.get('q', '')
@@ -52,7 +51,7 @@ def product_delete(request, pk):
     return render(request, 'inventory/product_confirm_delete.html', {'product': product})
 
 
-# --- EXISTING CHECKOUT LOGIC ---
+
 
 def product_buy(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -78,7 +77,6 @@ def product_buy(request, pk):
     return render(request, 'inventory/checkout.html', {'product': product})
 
 
-# --- NEW EXTRA CREDIT FEATURE: BUSINESS ANALYTICS DASHBOARD ---
 
 @login_required
 def analytics_dashboard(request):
@@ -106,7 +104,6 @@ def analytics_dashboard(request):
     return render(request, 'inventory/analytics.html', context)
 
 
-# --- NEW EXTRA CREDIT FEATURE: DYNAMIC EXCEL REPORT EXPORTER ---
 
 @login_required
 def export_sales_excel(request):
@@ -141,7 +138,6 @@ def export_sales_excel(request):
     return response
 
 
-# --- EXISTING THIRD-PARTY INTEGRATIONS & API VIEWS ---
 
 def trending_games(request):
 
